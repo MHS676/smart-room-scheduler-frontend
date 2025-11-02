@@ -8,7 +8,7 @@ import UserDashboard from '../pages/Dashboard/User';
 import BookingsPage from '../components/bookings/BookingForm';
 import RoomsPage from '../pages/Rooms/Rooms';
 import { RoleProtectedRoute } from '../components/shared/RoleProtectedRoute';
-import { ProtectedRoute } from '../components/shared/ProtectedRoute';
+import ProtectedRoute from '../components/shared/ProtectedRoute';
 
 export const AppRouter: React.FC = () => (
     <Routes>

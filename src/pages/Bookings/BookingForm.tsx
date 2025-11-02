@@ -4,7 +4,7 @@ import api from '../../services/api';
 
 
 type User = { id: string; name: string };
-type Room = { id: string; name: string; capacity: number; equipment: string[] };
+// Room type removed — not used in this page
 
 const BookingForm: React.FC = () => {
     const { user } = useAuth();

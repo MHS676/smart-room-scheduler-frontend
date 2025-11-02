@@ -1,20 +1,59 @@
-// src/api/bookingApi.ts
-import axios from 'axios';
+// src/services/bookingApi.ts
+import type { BookingRequest, BookingResponse } from '../types/booking';
 
-const API = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000',
-});
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
-export const getBookings = async (token: string) => {
-    const res = await API.get('/bookings', {
+/**
+ * Create a booking request
+ */
+export async function createBooking(
+    data: BookingRequest,
+    token: string
+): Promise<BookingResponse> {
+    const res = await fetch(`${API_BASE}/bookings`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.message || 'Failed to create booking');
+    }
+
+    return res.json() as Promise<BookingResponse>;
+}
+
+/**
+ * Get all rooms (optional helper if you want dropdown list)
+ */
+export async function getRooms(token: string) {
+    const res = await fetch(`${API_BASE}/rooms`, {
         headers: { Authorization: `Bearer ${token}` },
     });
-    return res.data;
-};
 
-export const createBooking = async (data: any, token: string) => {
-    const res = await API.post('/bookings', data, {
-        headers: { Authorization: `Bearer ${token}` },
+    if (!res.ok) {
+        throw new Error('Failed to fetch rooms');
+    }
+
+    return res.json();
+}
+
+export async function getBookings(token: string) {
+    const res = await fetch(`${API_BASE}/bookings/calendar`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
     });
-    return res.data;
-};
+
+    if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.message || 'Failed to fetch bookings');
+    }
+
+    return res.json();
+}

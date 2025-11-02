@@ -6,6 +6,7 @@ import Register from './pages/Auth/Register';
 import RoomList from './pages/Rooms/RoomList';
 import BookingForm from './components/bookings/BookingForm';
 import CalendarView from './components/calendar/CalendarView';
+import DashboardLayout from './layouts/DashboardLayout';
 
 export default function App() {
   return (
@@ -17,7 +18,9 @@ export default function App() {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <DashboardLayout>
+              <Dashboard />
+            </DashboardLayout>
           </ProtectedRoute>
         }
       />
@@ -25,7 +28,9 @@ export default function App() {
         path="/rooms"
         element={
           <ProtectedRoute>
-            <RoomList />
+            <DashboardLayout>
+              <RoomList />
+            </DashboardLayout>
           </ProtectedRoute>
         }
       />
@@ -33,7 +38,9 @@ export default function App() {
         path="/book"
         element={
           <ProtectedRoute>
-            <BookingForm />
+            <DashboardLayout>
+              <BookingForm />
+            </DashboardLayout>
           </ProtectedRoute>
         }
       />
@@ -41,7 +48,9 @@ export default function App() {
         path="/calendar"
         element={
           <ProtectedRoute>
-            <CalendarView />
+            <DashboardLayout>
+              <CalendarView />
+            </DashboardLayout>
           </ProtectedRoute>
         }
       />

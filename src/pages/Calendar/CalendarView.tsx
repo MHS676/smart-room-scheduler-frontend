@@ -4,16 +4,16 @@ import { getBookings } from '../../services/bookingApi';
 import { useAuth } from '../../context/AuthContext';
 
 export default function CalendarView() {
-    const { user } = useAuth();
+    const { token } = useAuth();
     const [bookings, setBookings] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchBookings = async () => {
-            const data = await getBookings(user?.token || '');
+            const data = await getBookings(token || '');
             setBookings(data);
         };
         fetchBookings();
-    }, [user]);
+    }, [token]);
 
     return (
         <div className="p-6">

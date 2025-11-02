@@ -4,17 +4,17 @@ import { getRooms } from '../../services/roomApi';
 import { useAuth } from '../../context/AuthContext';
 
 export default function RoomList() {
-    const { user } = useAuth();
+    const { token } = useAuth();
     const [rooms, setRooms] = useState<any[]>([]);
     const [filter, setFilter] = useState('');
 
     useEffect(() => {
         const fetchRooms = async () => {
-            const data = await getRooms(user?.token || '');
+            const data = await getRooms(token || '');
             setRooms(data);
         };
         fetchRooms();
-    }, [user]);
+    }, [token]);
 
     const filteredRooms = rooms.filter((r) =>
         r.name.toLowerCase().includes(filter.toLowerCase())
